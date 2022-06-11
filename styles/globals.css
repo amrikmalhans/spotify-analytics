@@ -14,3 +14,41 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.grid-div {
+  display: grid;
+  grid-template-columns:repeat(5, 1fr);
+}
+
+.grid-div-item {
+  padding: 1rem;
+  text-align: center;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 200px;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: center;
+
+}
+
+.graph-div {
+  display: flex;
+  justify-content: center;
+}
+
+.score {
+  /* fancy text styles */
+  font-size: 2.5rem;
+  text-align: center;
+  color: #4CAF50;
+}
