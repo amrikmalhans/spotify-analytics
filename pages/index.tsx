@@ -1,22 +1,21 @@
-import axios from 'axios';
-import type { NextPage } from 'next'
-import Router from 'next/router';
+import axios from "axios";
+import type { NextPage } from "next";
+import Router from "next/router";
+import Bubble from "../components/graphs/bubble";
 
 const Home: NextPage = () => {
-   const handleOnClick = async (e: React.MouseEvent<HTMLElement>) => {
+  const handleOnClick = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const { data } = await axios.get('http://localhost:8000/login/spotify', {
+    const { data } = await axios.get("http://localhost:8000/login/spotify", {
       withCredentials: true,
     });
-     Router.push(data);
-    
+    Router.push(data);
   };
   return (
     <div>
-        <button onClick={handleOnClick}>Login with spotify</button>
+      <button onClick={handleOnClick}>Login with spotify</button>
     </div>
-  )
-}
+  );
+};
 
-export default Home
- 
+export default Home;

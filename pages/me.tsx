@@ -4,6 +4,7 @@ import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import Bubble from "../components/graphs/bubble";
 
 const Me: NextPage = () => {
   const [artists, setArtists] = useState<any[]>([]);
@@ -34,7 +35,7 @@ const Me: NextPage = () => {
         });
       }
     })();
-    router.replace("/me", undefined, { shallow: true });
+    // router.replace("/me", undefined, { shallow: true });
   }, [code, router]);
 
   useEffect(() => {
@@ -54,17 +55,7 @@ const Me: NextPage = () => {
         )}
       </div>
       <div className="graph-div">
-        {artists.length > 0 ? (
-          <BarChart width={500} height={300} data={artists}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="popularity" fill="#8884d8" />
-          </BarChart>
-        ) : (
-          ""
-        )}
+        {artists.length > 0 ? <Bubble data={artists} /> : ""}
       </div>
       <div className="grid-div">
         {artists.length > 0 &&
