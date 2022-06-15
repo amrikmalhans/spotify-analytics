@@ -1,15 +1,11 @@
 import axios from "axios";
 import type { NextPage } from "next";
-import Image from "next/image";
-import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
 
-const Me: NextPage = () => {
+const Analytics: NextPage = () => {
   const [artists, setArtists] = useState<any[]>([]);
   const [popularity, setPopularity] = useState<number>(0);
-  const router = useRouter();
-  const code = router.query.code;
 
   const fetchArtists = async () => {
     const { data } = await axios.get("http://localhost:8000/top/artists", {
@@ -26,20 +22,10 @@ const Me: NextPage = () => {
       popularity.reduce((a: number, b: number) => a + b, 0) / popularity.length
     );
   };
-  useEffect(() => {
-    (async () => {
-      if (code) {
-        await axios.get(`http://localhost:8000/token?code=${code}`, {
-          withCredentials: true,
-        });
-      }
-    })();
-    router.replace("/me", undefined, { shallow: true });
-  }, [code, router]);
 
   useEffect(() => {
     fetchArtists();
-  }, [artists]);
+  }, []);
 
   return (
     <div>
@@ -71,11 +57,10 @@ const Me: NextPage = () => {
           artists.map((artist) => {
             return (
               <div className="grid-div-item" key={artist.id}>
-                <Image
+                <img
                   height="150px"
                   width="150px"
                   style={{ borderRadius: "100px" }}
-                  loader={() => artist.images[0].url}
                   src={artist.images[0].url}
                   alt={artist.name}
                 />
@@ -90,4 +75,4 @@ const Me: NextPage = () => {
   );
 };
 
-export default Me;
+export default Analytics;
