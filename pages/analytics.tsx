@@ -8,9 +8,12 @@ const Analytics: NextPage = () => {
   const [popularity, setPopularity] = useState<number>(0);
 
   const fetchArtists = async () => {
-    const { data } = await axios.get("http://localhost:8000/top/artists", {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      "https://spotify-analytics-d3.herokuapp.com/top/artists",
+      {
+        withCredentials: true,
+      }
+    );
     setArtists(data.items);
     const popularity: any = [];
 
