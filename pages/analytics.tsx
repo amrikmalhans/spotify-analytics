@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
+import Bubble from "../components/charts/bubble";
 
 const Analytics: NextPage = () => {
   const [artists, setArtists] = useState<any[]>([]);
@@ -40,17 +40,7 @@ const Analytics: NextPage = () => {
         )}
       </div>
       <div className="graph-div">
-        {artists.length > 0 ? (
-          <BarChart width={500} height={300} data={artists}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="popularity" fill="#8884d8" />
-          </BarChart>
-        ) : (
-          ""
-        )}
+        {artists.length > 0 ? <Bubble data={artists} /> : ""}
       </div>
       <div className="grid-div">
         {artists.length > 0 &&
