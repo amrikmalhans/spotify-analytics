@@ -60,10 +60,9 @@ const Bubble: FC<BubbleProps> = (props) => {
         })
       );
 
-    svg
-      .selectAll("circle")
-      .data(data)
-      .enter()
+    const node = svg.selectAll("circle").data(data).enter().append("g");
+
+    node
       .append("circle")
       .attr("cx", function (d) {
         return d.x;
@@ -75,21 +74,42 @@ const Bubble: FC<BubbleProps> = (props) => {
         return d.popularity * 0.65;
       })
       .attr("fill", "url(#gradient)")
+      .attr("stroke", "black")
+      .attr("stroke-width", "1px");
+
+    node
+      .append("text")
       .text(function (d) {
         return d.name;
+      })
+      // text should be centered on the circle
+      .attr(
+        "x",
+        function (d) {
+          return d.x;
+        }
+        // text should be vertically offset by the circle's radius
+      )
+      .attr(
+        "y",
+        function (d) {
+          return d.y + d.popularity * 0.65;
+        }
+        // text should be horizontally offset by the circle's radius
+      )
+      .attr("text-anchor", "middle")
+      // text should not be bigger than the circle
+      .attr("font-size", function (d) {
+        return Math.min(d.popularity * 0.15, 10);
       });
 
     simulation.nodes(data).on("tick", ticked);
 
     function ticked() {
-      svg
-        .selectAll("circle")
-        .attr("cx", function (d: any) {
-          return d.x;
-        })
-        .attr("cy", function (d: any) {
-          return d.y;
-        });
+      node.attr("transform", function (d) {
+        const k = "translate(" + d.x + "," + d.y + ")";
+        return k;
+      });
     }
   }, [svgRef, data]);
 
