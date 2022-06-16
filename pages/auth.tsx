@@ -10,9 +10,12 @@ const Me: NextPage = () => {
   useEffect(() => {
     (async () => {
       if (code) {
-        await axios.get(`http://localhost:8000/token?code=${code}`, {
-          withCredentials: true,
-        });
+        await axios.get(
+          `https://spotify-analytics-d3.herokuapp.com/token?code=${code}`,
+          {
+            withCredentials: true,
+          }
+        );
       }
     })();
 
